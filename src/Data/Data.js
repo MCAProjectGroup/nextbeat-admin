@@ -16,31 +16,45 @@ import {
 export const SidebarArray = [
     {
         icon:UilEstate,
-        heading:"Dashboard"
+        heading:"Dashboard",
+        path:"/admin"
     },
     {
         icon:UilChatBubbleUser,
-        heading:"Users"
+        heading:"Users",
+        path:"/admin/users"
+
     },
     {
         icon:UilShoppingCart,
-        heading:"Plans"
+        heading:"Plans",
+        path:"/admin/plans"
+
     },
     {
         icon:UilEnvelopeAlt,
-        heading:"Contact"
+        heading:"Contact",
+        path:"/admin/contact"
+        
     },
     {
         icon:UilUser,
-        heading:"Profile Setting"
+        heading:"Profile Setting",
+        path:"/admin/setting/profile"
+
     },
     {
         icon:UilGlobe,
-        heading:"Global Setting"
+        heading:"Global Setting",
+        path:"/admin/setting/global"
+
+
     },
     {
         icon:UilChart,
-        heading:"Analytics"
+        heading:"Analytics",
+        path:"/setting/analytics"
+
     },
 ]
 

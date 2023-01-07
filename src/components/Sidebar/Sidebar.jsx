@@ -4,13 +4,15 @@ import Logo from "../../images/logo.png"
 import {motion} from "framer-motion"
 import { UilSignOutAlt,UilBars } from '@iconscout/react-unicons'
 import { SidebarArray } from '../../Data/Data'
+import { useNavigate } from 'react-router-dom'
 
 
 
 const Sidebar = () => {
     const [ActiveMenu, setActiveMenu] = useState(0)
     const [expended, setExpended] = useState(true)
-    
+    // const navigation = useN
+    const navigate = useNavigate()
     const sideBarVariants = {
         true:{
             lef:"0"
@@ -45,7 +47,7 @@ const Sidebar = () => {
                 {/* menu */}
                 <div className="menu">
                     {SidebarArray.map((item, index) => (
-                        <div onClick={()=>setActiveMenu(index)} className={ActiveMenu===index?"menuItem active":"menuItem"} key={index + item.heading}>
+                        <div onClick={()=>(setActiveMenu(index), navigate(item.path)) } className={ActiveMenu===index?"menuItem active":"menuItem"} key={index + item.heading}>
                             <item.icon />
                             <span>{item.heading}</span>
                         </div>

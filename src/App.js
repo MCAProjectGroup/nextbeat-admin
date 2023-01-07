@@ -11,20 +11,20 @@ import {
 } from 'react-router-dom'
 import DashBoard from './pages/DashBoard/DashBoard';
 
-import Users from './pages/DashBoard/Users/Users';
+import Users from './pages/Users/Users';
 function App() {
   
 
   return (
     <div className="App">
       <div className="AppGlass">
-        <Sidebar />
         <Router>
+        <Sidebar />
 
           <Routes>
 
-            <Route path="/admin/*" element={<DashBoard />} />
-            <Route path="/*" element={<div style={{ width: "100%", height: "100%" }}>
+            <Route path="/admin" element={<DashBoard />} />
+            <Route path="/admin/users" element={<div style={{ width: "100%", height: "100%" }}>
               <Users />
             </div>
             } />
