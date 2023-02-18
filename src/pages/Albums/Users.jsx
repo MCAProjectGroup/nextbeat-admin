@@ -27,7 +27,7 @@ const getUsersData = async(page=1, filter={})=>{
     return res.data; 
 }
 
-const Artist = () => {
+const Users = () => {
   const [UserList, setUserList] = useState([]);
   const getUsers = async () =>{
     try {
@@ -52,4 +52,4 @@ const Artist = () => {
   );
 }
 
-export default Artist
+export default Users

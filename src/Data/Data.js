@@ -27,14 +27,14 @@ export const SidebarArray = [
     },
     {
         icon:UilShoppingCart,
-        heading:"Plans",
-        path:"/admin/plans"
+        heading:"Categories",
+        path:"/admin/categories"
 
     },
     {
         icon:UilEnvelopeAlt,
-        heading:"Contact",
-        path:"/admin/contact"
+        heading:"Artists",
+        path:"/admin/artists"
         
     },
     {
@@ -131,4 +131,18 @@ export const UpdatesData = [
         noti:"has ordered Apple smart watch 2500mh battery",
         time:"2 hours ago"
     },
+]
+
+export const CategoriesForm = [
+    {
+        name:"Name",
+        placeholder:"Name",
+        type:"text"
+    },
+    {
+        name:"Image",
+        placeholder:"Category Banner",
+        type:"file"
+    },
+
 ]

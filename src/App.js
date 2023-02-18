@@ -12,8 +12,22 @@ import {
 import DashBoard from './pages/DashBoard/DashBoard';
 
 import Users from './pages/Users/Users';
+import Categories from './pages/Categories/Categories';
+import Login from './pages/Login/Login';
 function App() {
   
+  const token = ""
+  if(!token){
+    return (
+      <div className="App">
+      {/* <div className="AppGlass"> */}
+        <Login />
+        {/* sadasdsa */}
+      {/* </div> */}
+      </div>
+    )
+
+  }
 
   return (
     <div className="App">
@@ -26,6 +40,10 @@ function App() {
             <Route path="/admin" element={<DashBoard />} />
             <Route path="/admin/users" element={<div style={{ width: "100%", height: "100%" }}>
               <Users />
+            </div>
+            } />
+            <Route path="/admin/categories" element={<div style={{ width: "100%", height: "100%" }}>
+              <Categories />
             </div>
             } />
           </Routes>
