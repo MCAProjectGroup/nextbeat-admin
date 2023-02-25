@@ -66,7 +66,7 @@ const Sidebar = () => {
                         </div>
                     ))}
                     
-                    <div className="menuItem" style={{marginTop:"2rem"}}>
+                    <div className="menuItem" style={{marginTop:"2rem"}} onClick={()=> localStorage.removeItem("@token")}>
                         <UilSignOutAlt />
                         <span>{"Log Out"}</span>
 

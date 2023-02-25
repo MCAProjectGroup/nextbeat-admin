@@ -101,7 +101,7 @@ const Login = (props) => {
                         // startIcon={<SaveIcon />}
                         variant="contained"
                         onClick={async()=>{
-                           const token = LoginAdmin(LoginForm.email, LoginForm.password);
+                           const token = await LoginAdmin(LoginForm.email, LoginForm.password);
                            localStorage.setItem("@token", token)
                            props.setToken(token)
                         }}
