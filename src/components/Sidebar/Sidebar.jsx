@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Sidebar.css"
 import Logo from "../../images/logo.png"
 import {motion} from "framer-motion"
@@ -21,7 +21,20 @@ const Sidebar = () => {
             left:"-60%"
         }
     }
-
+    useEffect(() => {
+    //   console.log(window.location.pathname);
+    //   let path = window.location.pathname.split("/")
+       SidebarArray.map((item, index)=>{
+        // path:window.location.pathname
+        if(item.path === window.location.pathname){
+            console.log(item);
+            setActiveMenu(index)
+        }
+    })
+      return () => {
+      }
+    }, [window.location.pathname])
+    
     return (
         <>
             
@@ -52,7 +65,8 @@ const Sidebar = () => {
                             <span>{item.heading}</span>
                         </div>
                     ))}
-                    <div className="menuItem">
+                    
+                    <div className="menuItem" style={{marginTop:"2rem"}}>
                         <UilSignOutAlt />
                         <span>{"Log Out"}</span>
 

@@ -41,21 +41,28 @@ const makeStyles = (status)=>{
     return response
 }
 
-export default function TableUsers({dataList}) {
+export default function TableArtists({dataList,formListData=[]}) {
+    console.log({formListData});
     return (
         <div className={styles.Table}>
-            <h3 style={{marginBottom:"1rem"}}>All Users</h3>
+            <h3 style={{marginBottom:"1rem"}}>All Artists</h3>
             <TableContainer style={{boxShadow:"0px 13px 20px 0px #80808029"}} component={Paper} >
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
-                            <TableCell>Name</TableCell>
+                            {
+                                formListData.map((item, index)=>(
+                                    <TableCell align="left">{item.placeholder}</TableCell>
+
+                                ))
+                            }
+                            {/* <TableCell>Name</TableCell>
                             <TableCell align="left">Email</TableCell>
                             <TableCell align="left">Date</TableCell>
                             <TableCell align="left">Plan</TableCell>
                             <TableCell align="left">Action</TableCell>
-                            <TableCell align="left"></TableCell>
+                            <TableCell align="left"></TableCell> */}
                         </TableRow>
                     </TableHead>
                     <TableBody>

@@ -3,10 +3,34 @@
     flex-direction: column;
     position: relative;
     padding-top: 1rem;
-    /* overflow-y: scroll; */
+    overflow-y: scroll;
     transition: all 300 ease;
 }
+.Sidebar::-webkit-scrollbar{
+    display: none;
+  }
 
+  /* ===== Scrollbar CSS ===== */
+  /* Firefox */
+ .menu {
+    scrollbar-width: thin;
+    scrollbar-color: #ff919d #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari.menu */
+ .menu::-webkit-scrollbar {
+    width: 10px;
+  }
+
+ .menu::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+ .menu::-webkit-scrollbar-thumb {
+    background-color: #ff919d;
+    border-radius: 20px;
+    border: 1px dotted #f50000;
+  }
 .logo{
     display: flex;
     height: 20%;
@@ -31,6 +55,7 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    overflow-y: auto;
 }
 
 .menuItem{
@@ -39,6 +64,7 @@
     gap: 1rem;
     height: 2.5rem;
     margin-left: 2rem;
+    /* margin-top: 2rem; */
     position: relative;
     transition: all 300ms ease;
     font-size: 14px;
@@ -61,8 +87,9 @@
 }
 
 .menu .menuItem:last-child{
-    position: absolute;
+    /* position: absolute; */
     bottom: 2.3rem;
+    margin-top:  2.3rem;
     /* width: 100%; */
 } 
 .bars{

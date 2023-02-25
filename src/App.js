@@ -14,14 +14,20 @@ import DashBoard from './pages/DashBoard/DashBoard';
 import Users from './pages/Users/Users';
 import Categories from './pages/Categories/Categories';
 import Login from './pages/Login/Login';
+import { useLayoutEffect, useState } from 'react';
+import Artists from './pages/Artists/Artists';
 function App() {
   
-  const token = ""
+  const [token, setToken] = useState("");
+  useLayoutEffect(() => {
+    setToken(localStorage.getItem("@token"))
+    
+  }, [])
   if(!token){
     return (
       <div className="App">
       {/* <div className="AppGlass"> */}
-        <Login />
+        <Login setToken={setToken} />
         {/* sadasdsa */}
       {/* </div> */}
       </div>
@@ -32,11 +38,11 @@ function App() {
   return (
     <div className="App">
       <div className="AppGlass">
-        <Router>
+        <Router >
         <Sidebar />
 
-          <Routes>
-
+          <Routes >
+            <Route path="/" element={<DashBoard />} />
             <Route path="/admin" element={<DashBoard />} />
             <Route path="/admin/users" element={<div style={{ width: "100%", height: "100%" }}>
               <Users />
@@ -44,6 +50,10 @@ function App() {
             } />
             <Route path="/admin/categories" element={<div style={{ width: "100%", height: "100%" }}>
               <Categories />
+            </div>
+            } />
+             <Route path="/admin/artists" element={<div style={{ width: "100%", height: "100%" }}>
+              <Artists />
             </div>
             } />
           </Routes>

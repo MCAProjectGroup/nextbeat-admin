@@ -1,9 +1,9 @@
 import {
     UilChart,
     UilEstate,
-    UilEnvelopeAlt,
+    UilUserSquare,
     UilShoppingCart,
-    UilUser,
+    UilMusic,
     UilUsdSquare,
     UilMoneyWithdrawal,
     UilGlobe,
@@ -32,15 +32,15 @@ export const SidebarArray = [
 
     },
     {
-        icon:UilEnvelopeAlt,
+        icon:UilUserSquare,
         heading:"Artists",
         path:"/admin/artists"
         
     },
     {
-        icon:UilUser,
-        heading:"Profile Setting",
-        path:"/admin/setting/profile"
+        icon:UilMusic,
+        heading:"Songs",
+        path:"/admin/setting/songs"
 
     },
     {
@@ -145,4 +145,51 @@ export const CategoriesForm = [
         type:"file"
     },
 
+]
+
+export const ArtistForm = [
+    
+    {
+        name:"Name",
+        placeholder:"Name",
+        type:"text"
+    },
+    {
+        name:"Image",
+        placeholder:"Category Banner",
+        type:"file"
+    },
+    {
+        name:"Gender",
+        placeholder:"Gender",
+        type:"text"
+    },
+    {
+        name:"Language",
+        placeholder:"Language",
+        type:"text"
+    }
+]
+
+export const AlbumForm = [
+    {
+        name:"Name",
+        placeholder:"Name",
+        type:"text"
+    },
+    {
+        name:"Image",
+        placeholder:"Category Banner",
+        type:"file"
+    },
+    {
+        name:"Airtst",
+        placeholder:"Airtsts",
+        type:"text"
+    },
+    {
+        name:"Keyword",
+        placeholder:"Keywords",
+        type:"text"
+    }
 ]

@@ -3,24 +3,37 @@ import React, { useState } from 'react'
 import EmailIcon from '@mui/icons-material/Email';
 import KeyIcon from '@mui/icons-material/Key';
 import { LoadingButton } from '@mui/lab';
+import { Request } from '../../utils/Request';
 const LoginFormList = [
     {
         placeholder:"Email",
         Icon: EmailIcon,
-        type:"text"
+        type:"text",
+        name:"email"
 
     },
     {
         placeholder:"Password",
         Icon: KeyIcon,
-        type:"password"
+        type:"password",
+        name:"password"
+
     }
 ]
 
-const Login = () => {
+const LoginAdmin = async(email, password)=>{
+    const res = await Request("post", "/login",{
+        email,
+        password
+    });
+    console.log(res.data);
+    return res.data.data.token
+}
+
+const Login = (props) => {
     const [LoginForm, setLoginForm] = useState({
         email:"",
-        pass:""
+        password:""
     });
     
     // return (
@@ -57,6 +70,12 @@ const Login = () => {
                                 </InputAdornment>
                                 ),
                             }}   
+                            onChange={e=> {
+                                LoginForm[Item.name] = e.target.value;
+                                setLoginForm({
+                                    ...LoginForm
+                                })
+                            }}
                             type={Item.type}
                             fullWidth
                             sx={{
@@ -81,6 +100,11 @@ const Login = () => {
                         loadingPosition="start"
                         // startIcon={<SaveIcon />}
                         variant="contained"
+                        onClick={async()=>{
+                           const token = LoginAdmin(LoginForm.email, LoginForm.password);
+                           localStorage.setItem("@token", token)
+                           props.setToken(token)
+                        }}
                         >
                         Login
                     </LoadingButton>
