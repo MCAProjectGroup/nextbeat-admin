@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
-import { TextField } from '@mui/material';
+import { Autocomplete, TextField } from '@mui/material';
 
 const style = {
     position: 'absolute',
@@ -15,8 +15,20 @@ const style = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    p: 4,
+    // overflow:"scroll",
+    overflowY: "scroll", 
+    height:800,
+    padding: 4,
 };
+const top100Films = [
+    { label: 'The Shawshank Redemption', year: 1994 },
+    { label: 'The Godfather', year: 1972 },
+    { label: 'The Godfather: Part II', year: 1974 },
+    { label: 'The Dark Knight', year: 2008 },
+    { label: '12 Angry Men', year: 1957 },
+    { label: "Schindler's List", year: 1993 },
+    { label: 'Pulp Fiction', year: 1994 },
+]
 const FormPopup = (props) => {
     return (
         <Modal
@@ -40,15 +52,24 @@ const FormPopup = (props) => {
                 </div> */}
                 {
                     props.formListData.map((item, index)=>(
-                        <div className="box" style={{ marginBottom: 16 }}>
+                        <div key={index+"adsdsadsa"} className="box" style={{ marginBottom: 16 }}>
                         <TextField label={item.type!=="file"&&item.placeholder || ""}
                             fullWidth
+                            onChange={e => props.onChange(item.fieldName,item.type==="file"?e.target.files[0]: e.target.value)}
                              type={item.type}
                             variant="outlined" />
     
                     </div>
                     ))
                 }
+                <Autocomplete
+                    disablePortal
+                    id="combo-box-demo"
+                    options={top100Films}
+                    // sx={{ width: 300 }}
+                    fullWidth
+                    renderInput={(params) => <TextField {...params} label="Movie" />}
+                />
                 {/* <div className="box" style={{ marginBottom: 16 }}>
                     <TextField id="filled-basic" label="Filled"
                         fullWidth

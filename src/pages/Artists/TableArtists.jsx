@@ -68,7 +68,7 @@ export default function TableArtists({dataList,formListData=[]}) {
                     <TableBody>
                         {dataList.map((row) => (
                             <TableRow
-                                key={row.name}
+                                key={row._id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
                                 <TableCell component="th" scope="row">
@@ -77,11 +77,14 @@ export default function TableArtists({dataList,formListData=[]}) {
                                 <TableCell component="th" scope="row">
                                     {row.name}
                                 </TableCell>
-                                <TableCell align="left">{row.email}</TableCell>
+                                <TableCell component="th" scope="row"  >
+                                    {/* {row.live_image} */}
+                                    <img src={row.live_image} width={50} height={50} />
+                                </TableCell>
                                 <TableCell align="left">{moment(row.updatedAt).format("DD/MM/YY hh:mm A")}</TableCell>
                                 <TableCell align="left">
                                     <span className={styles.status} style={makeStyles(row.status)}>
-                                    {row.plan}
+                                    {row.language.join(", ")}
                                     </span>
                                 </TableCell>
                                 <TableCell className={styles.Details} align="left"><UilEditAlt color={"green"} />&nbsp; &nbsp;<UilTrash color={"red"} /></TableCell>

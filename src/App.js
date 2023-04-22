@@ -16,6 +16,7 @@ import Categories from './pages/Categories/Categories';
 import Login from './pages/Login/Login';
 import { useLayoutEffect, useState } from 'react';
 import Artists from './pages/Artists/Artists';
+import Songs from './pages/Songs/Songs';
 function App() {
   
   const [token, setToken] = useState("");
@@ -54,6 +55,10 @@ function App() {
             } />
              <Route path="/admin/artists" element={<div style={{ width: "100%", height: "100%" }}>
               <Artists />
+            </div>
+            } />
+              <Route path="/admin/songs" element={<div style={{ width: "100%", height: "100%" }}>
+              <Songs />
             </div>
             } />
           </Routes>

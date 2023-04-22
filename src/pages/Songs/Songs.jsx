@@ -4,9 +4,9 @@ import { Button, ButtonGroup, Paper } from '@mui/material';
 import { useState } from 'react';
 import { Request } from '../../utils/Request';
 import { useLayoutEffect } from 'react';
-import TableCategories from './TableCategories';
+import TableSongs from './TableSongs';
 import FormPopup from '../../components/FormPopup/FormPopup';
-import {CategoriesForm} from '../../Data/Data'
+import {SongsForm} from '../../Data/Data'
 import { useCallback } from 'react';
 import { getCategoryData } from '../../store/category';
 import { useDispatch, useSelector } from 'react-redux';
@@ -33,8 +33,7 @@ const columns = [
 //     return res.data; 
 // }
 
-const Categories = () => {
-  const [CategoryList, setCategoryList] = useState([]);
+const Songs = () => {
   const [ShowForm, setShowForm] = useState({
     status:false,
     data:{}
@@ -53,9 +52,9 @@ const Categories = () => {
   }
   const category_list = useSelector(state => state.category.category_list)
   const dispatch = useDispatch()
-  const getCategories = async () =>{
+  const getSongs = async () =>{
     // try {
-    //   // const res = await getCategoriesData();
+    //   // const res = await getSongsData();
     //   const res = await Request("get", "/main/genres");
 
     //   console.log(res.data);
@@ -63,13 +62,13 @@ const Categories = () => {
     // } catch (error) {
       
     // }
-    dispatch(getCategoryData())
+    // dispatch(getCategoryData())
 
   }
 
   useLayoutEffect(() => {
     
-    getCategories();
+    getSongs();
   }, [Refresh])
 
   const addNew = useCallback(
@@ -101,7 +100,7 @@ const Categories = () => {
 
   return (
     <div style={{  width: '100%', height:"100%" , padding:"4rem"}}>
-       <FormPopup show={ShowForm.status} formListData={CategoriesForm} onChange={onChangeFormData} data = {ShowForm.data} title={"Category"} onSave={()=> addNew(FormManage)} onClose={()=> setShowForm({...ShowForm, status:false})} />
+       <FormPopup show={ShowForm.status} formListData={SongsForm} onChange={onChangeFormData} data = {ShowForm.data} title={"Category"} onSave={()=> addNew(FormManage)} onClose={()=> setShowForm({...ShowForm, status:false})} />
         <div style={{float:"right", marginBottom:16}}>
             <Button
             title='Add'
@@ -112,10 +111,10 @@ const Categories = () => {
             >Add</Button>
           
         </div>
-      <TableCategories dataList={category_list} onEdit={openForm} onRefresh={setRefresh} />
+      <TableSongs dataList={category_list} onEdit={openForm} onRefresh={setRefresh} />
 
     </div>
   ); 
 }
 
-export default Categories
+export default Songs

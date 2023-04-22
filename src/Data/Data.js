@@ -40,7 +40,7 @@ export const SidebarArray = [
     {
         icon:UilMusic,
         heading:"Songs",
-        path:"/admin/setting/songs"
+        path:"/admin/songs"
 
     },
     {
@@ -136,14 +136,74 @@ export const UpdatesData = [
 export const CategoriesForm = [
     {
         name:"Name",
+        fieldName:"name",
         placeholder:"Name",
         type:"text"
     },
     {
         name:"Image",
+        fieldName:"file",
         placeholder:"Category Banner",
         type:"file"
     },
+
+]
+export const SongsForm = [
+    {
+        name:"title",
+        fieldName:"title",
+        placeholder:"Title",
+        type:"text"
+    },
+    {
+        name:"title",
+        fieldName:"title",
+        placeholder:"Title",
+        type:"text"
+    },
+    {
+        name:"description",
+        fieldName:"description",
+        placeholder:"Description",
+        type:"text"
+    },
+    {
+        name:"language",
+        fieldName:"language",
+        placeholder:"Language",
+        type:"text"
+    },
+    {
+        name:"short_description",
+        fieldName:"short_description",
+        placeholder:"Short Description",
+        type:"text"
+    },
+    {
+        name:"keywords",
+        fieldName:"keywords",
+        placeholder:"Keywords",
+        type:"text"
+    },
+    {
+        name:"imagefile",
+        fieldName:"imagefile",
+        placeholder:"Song Banner",
+        type:"file"
+    },
+    {
+        name:"audiofile",
+        fieldName:"audiofile",
+        placeholder:"Song File",
+        type:"file"
+    },
+
+
+// data.append('album', '');
+// data.append('artist', '643bea544db68a15556b5de8');
+// data.append('genre', '643be6be9c9f096b664d5b05');
+// data.append('language', 'Hindi');
+
 
 ]
 
@@ -156,7 +216,8 @@ export const ArtistForm = [
     },
     {
         name:"Image",
-        placeholder:"Category Banner",
+        fieldName:"file",
+        placeholder:"Artist Banner",
         type:"file"
     },
     {
