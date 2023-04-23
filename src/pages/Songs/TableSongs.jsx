@@ -46,14 +46,14 @@ const makeStyles = (status)=>{
 
 
 export default function TableCategories({dataList,onRefresh}) {
-    const deleteCategory = async(category_id,callBack) => {
-        console.log(category_id)
+    const deleteCategory = async(song_id,callBack) => {
+        console.log(song_id)
         // axios request to delete
         let text;
         if (window.confirm("Are you sure you want to delete") === true) {
             text = "You pressed OK!";
            
-            const res = await Request("delete", "/main/genres/"+category_id);
+            const res = await Request("delete", "/main/songs/"+song_id);
             console.log(res.data);
             
             console.log(res);
@@ -73,10 +73,10 @@ export default function TableCategories({dataList,onRefresh}) {
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
-                            <TableCell>Name</TableCell>
+                            <TableCell>Title</TableCell>
                             {/* <TableCell align="left">Active</TableCell> */}
                             <TableCell align="left" width={100}>Live</TableCell>
-                            <TableCell align="left" width={100}>temp path</TableCell>
+                            <TableCell align="left" width={100}>Audio path</TableCell>
                             <TableCell align="left">Uploaded</TableCell>
                             <TableCell align="left">Action</TableCell>
                             <TableCell align="left">Last Updated</TableCell>
@@ -85,21 +85,21 @@ export default function TableCategories({dataList,onRefresh}) {
                     <TableBody>
                         {dataList.map((row) => (
                             <TableRow
-                                key={row.name}
+                                key={row._id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
+                                <TableCell component="th" scope="row" width={100}>
                                     {row._id}
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    {row.name}
+                                    {row.title}
                                 </TableCell>
                                 <TableCell component="th" scope="row"  >
                                     {/* {row.live_image} */}
                                     <img src={row.live_image} width={50} height={50} />
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    {row.local_image}
+                                    <a href={row.live_song} target="_blank" rel="noopener noreferrer">Click</a>
                                 </TableCell>
                                 <TableCell component="th" scope="row">
                                     {row.isUploaded.toString()}

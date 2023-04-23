@@ -76,7 +76,7 @@ const Categories = () => {
    async (data) => {
     console.log(data);
      const formData = new FormData();
-     formData.append("name", "testing");
+     formData.append("name", data.name);
      formData.append("file", data.file);
      console.log(formData.get("file"));
       const res = await Request("post", "/main/genres/add",formData, true);

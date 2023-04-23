@@ -149,12 +149,7 @@ export const CategoriesForm = [
 
 ]
 export const SongsForm = [
-    {
-        name:"title",
-        fieldName:"title",
-        placeholder:"Title",
-        type:"text"
-    },
+    
     {
         name:"title",
         fieldName:"title",
@@ -165,7 +160,8 @@ export const SongsForm = [
         name:"description",
         fieldName:"description",
         placeholder:"Description",
-        type:"text"
+        type:"text",
+        multiline:true,
     },
     {
         name:"language",

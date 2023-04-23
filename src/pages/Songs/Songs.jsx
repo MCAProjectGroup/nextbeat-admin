@@ -1,31 +1,29 @@
 import * as React from 'react';
-import { DataGrid, GridRowsProp, GridColDef, GridToolbar } from '@mui/x-data-grid';
-import { Button, ButtonGroup, Paper } from '@mui/material';
+// import { DataGrid, GridRowsProp, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import { Autocomplete, Button,  TextField } from '@mui/material';
 import { useState } from 'react';
 import { Request } from '../../utils/Request';
 import { useLayoutEffect } from 'react';
 import TableSongs from './TableSongs';
 import FormPopup from '../../components/FormPopup/FormPopup';
-import {SongsForm} from '../../Data/Data'
+import { SongsForm } from '../../Data/Data'
 import { useCallback } from 'react';
 import { getCategoryData } from '../../store/category';
 import { useDispatch, useSelector } from 'react-redux';
+import { getSongData } from '../../store/song';
+import { getArtistData } from '../../store/artist';
 // import Request from '../../utils/Request';
-const rows = [
-  { id: 1, col1: 'Hello', col2: 'World' },
-  { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-  { id: 3, col1: 'MUI', col2: 'is Amazing' },
-  { id: 11, col1: 'Hello', col2: 'World' },
-  { id: 12, col1: 'DataGridPro', col2: 'is Awesome' },
-  { id: 13, col1: 'MUI', col2: 'is Amazing' },
-];
 
-const columns = [
-  { field: 'id', headerName: 'Category ID',  },
-  { field: 'name', headerName: 'Name',  },
-  { field: 'active', headerName: 'Active', },
-  { field: 'file', headerName: 'Active', },
-];
+const top100Films = [
+  { label: 'The Shawshank Redemption', year: 1994 },
+  { label: 'The Godfather', year: 1972 },
+  { label: 'The Godfather: Part II', year: 1974 },
+  { label: 'The Dark Knight', year: 2008 },
+  { label: '12 Angry Men', year: 1957 },
+  { label: "Schindler's List", year: 1993 },
+  { label: 'Pulp Fiction', year: 1994 },
+]
+
 
 
 // const getCategoriesData = async(page=1, filter={})=>{
@@ -35,24 +33,28 @@ const columns = [
 
 const Songs = () => {
   const [ShowForm, setShowForm] = useState({
-    status:false,
-    data:{}
+    status: false,
+    data: {}
   });
   const [FormManage, setFormManage] = useState({
-    name:"",
-    file:null
+   
   })
   const [Refresh, setRefresh] = useState(0)
 
-  const openForm = (data={})=>{
+  const openForm = (data = {}) => {
     setShowForm({
-      status:ShowForm,
+      status: ShowForm,
       data,
     })
   }
   const category_list = useSelector(state => state.category.category_list)
+  const artist_list = useSelector(state => state.artist.artist_list)
+  const song_list = useSelector(state => state.song.song_list)
   const dispatch = useDispatch()
-  const getSongs = async () =>{
+  const getSongs = async () => {
+    dispatch(getCategoryData())
+    dispatch(getArtistData())
+    dispatch(getSongData())
     // try {
     //   // const res = await getSongsData();
     //   const res = await Request("get", "/main/genres");
@@ -60,61 +62,129 @@ const Songs = () => {
     //   console.log(res.data);
     //   setCategoryList(res.data.data)
     // } catch (error) {
-      
+
     // }
     // dispatch(getCategoryData())
 
   }
 
   useLayoutEffect(() => {
-    
+
     getSongs();
   }, [Refresh])
 
   const addNew = useCallback(
-   async (data) => {
-    console.log(data);
-     const formData = new FormData();
-     formData.append("name", "testing");
-     formData.append("file", data.file);
-     console.log(formData.get("file"));
-      const res = await Request("post", "/main/genres/add",formData, true);
-      console.log({res});
-      setShowForm({...ShowForm, status:false})
-      setRefresh(state=> state+1)
+    async (data) => {
+      console.log({data});
+      const formData = new FormData();
+      formData.append("title", data.title);
+      formData.append("description", data.description);
+      formData.append("language", data.language);
+      formData.append("short_description", data.short_description);
+      // formData.append("keywords", data.keywords);
+      formData.append("imagefile", data.imagefile);
+      formData.append("audiofile", data.audiofile);
+
+      // data.artist.split(",").map((artist) =>{
+      //   if(artist._id)
+        formData.append("artist[]", data.artist._id);
+      // })
+      // data.genre.split(",").map((genre) =>{
+        // if(genre._id)
+        formData.append("genre[]", data.genre._id);
+      // })
+      data.keywords.split(",").map((keyword="") =>{
+        if(keyword.trim() !== "")
+        formData.append("keywords[]", keyword)
+      });
+      console.log({formData:"adsasd"});
+      const res = await Request("post", "/main/songs/add", formData, true);
+      console.log({ res });
+      setShowForm({ ...ShowForm, status: false })
+      setRefresh(state => state + 1)
     },
     [],
   );
   const onChangeFormData = useCallback(
-    async (key,data) => {
+    async (key, data) => {
       //  const res = await Request("post", "/main/genres/add",data);
       //  console.log(res.data);
       setFormManage({
-      ...FormManage,
-        [key]:data
+        ...FormManage,
+        [key]: data
       });
-     },
-     [FormManage],
-   )
-  
+    },
+    [FormManage],
+  )
+
+  const AutoCompleteHandler = (key, value)=>{
+
+  }
+
+  const ExtraOption = () => {
+    return (
+      <div>
+        <div key={"fdssadsdsadsa"} className="box" style={{ marginBottom: 16 }}>
+
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={artist_list}
+            // sx={{ width: 300 }}
+            value={FormManage.artist}
+
+            getOptionLabel={(option) => option.name}
+            onChange={(event, value) => onChangeFormData("artist",value)}
+            
+            fullWidth
+            renderInput={(params) => <TextField {...params} label="Artist" onChange={(e)=>AutoCompleteHandler("category",e.target.value )}  />}
+          />
+        </div>
+        <div key={"fdssadsdsdasdasadsa"} className="box" style={{ marginBottom: 16 }}>
+
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={category_list}
+            // sx={{ width: 300 }}
+            fullWidth
+            value={FormManage.genre}
+            onChange={(event, value) => onChangeFormData("genre",value)}
+            // onSelect={(e) => {console.log("onSelect",e)}}
+            // renderOption={(props, option) => {
+            //   return (
+            //       <li {...props} >
+            //         {option.name}
+            //       </li>
+            //      )
+            //    }}
+            getOptionLabel={(option) => option.name}
+            renderInput={(params) => <TextField {...params} label="Category"  onChange={(e)=>AutoCompleteHandler("category",e.target.value )}    />}
+          />
+        </div>
+      </div>
+    )
+  }
+
+
 
   return (
-    <div style={{  width: '100%', height:"100%" , padding:"4rem"}}>
-       <FormPopup show={ShowForm.status} formListData={SongsForm} onChange={onChangeFormData} data = {ShowForm.data} title={"Category"} onSave={()=> addNew(FormManage)} onClose={()=> setShowForm({...ShowForm, status:false})} />
-        <div style={{float:"right", marginBottom:16}}>
-            <Button
-            title='Add'
-            color='primary'
-            type='button'
-            variant='contained'
-            onClick={openForm}
-            >Add</Button>
-          
-        </div>
-      <TableSongs dataList={category_list} onEdit={openForm} onRefresh={setRefresh} />
+    <div style={{ width: '100%', height: "100%", padding: "4rem" }}>
+      <FormPopup Extra={ExtraOption} show={ShowForm.status} formListData={SongsForm} onChange={onChangeFormData} data={ShowForm.data} title={"Category"} onSave={() => addNew(FormManage)} onClose={() => setShowForm({ ...ShowForm, status: false })} />
+      <div style={{ float: "right", marginBottom: 16 }}>
+        <Button
+          title='Add'
+          color='primary'
+          type='button'
+          variant='contained'
+          onClick={openForm}
+        >Add</Button>
+
+      </div>
+      <TableSongs dataList={song_list} onEdit={openForm} onRefresh={setRefresh} />
 
     </div>
-  ); 
+  );
 }
 
 export default Songs
