@@ -68,7 +68,7 @@ const Artists = () => {
       const formData = new FormData();
       formData.append("gender",data.gender);
       formData.append("language", [data.language]);
-      formData.append("name", "testing");
+      formData.append("name", data.name);
       formData.append("file", data.file);
       console.log(formData.get("file"));
        const res = await Request("post", "/main/artists/add",formData, true);

@@ -164,6 +164,13 @@ export const SongsForm = [
         multiline:true,
     },
     {
+        name:"duration",
+        fieldName:"duration",
+        placeholder:"duration in seconds",
+        type:"text",
+        // multiline:true,
+    },
+    {
         name:"language",
         fieldName:"language",
         placeholder:"Language",
@@ -206,7 +213,8 @@ export const SongsForm = [
 export const ArtistForm = [
     
     {
-        name:"Name",
+        name:"name",
+        fieldName:"name",
         placeholder:"Name",
         type:"text"
     },
@@ -217,12 +225,14 @@ export const ArtistForm = [
         type:"file"
     },
     {
-        name:"Gender",
+        name:"gender",
+        fieldName:"gender",
         placeholder:"Gender",
         type:"text"
     },
     {
-        name:"Language",
+        name:"language",
+        fieldName:"language",
         placeholder:"Language",
         type:"text"
     }

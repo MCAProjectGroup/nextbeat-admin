@@ -81,6 +81,7 @@ const Songs = () => {
       formData.append("description", data.description);
       formData.append("language", data.language);
       formData.append("short_description", data.short_description);
+      formData.append("duration", data.duration);
       // formData.append("keywords", data.keywords);
       formData.append("imagefile", data.imagefile);
       formData.append("audiofile", data.audiofile);
