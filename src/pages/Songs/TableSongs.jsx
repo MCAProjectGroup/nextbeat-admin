@@ -68,7 +68,7 @@ export default function TableCategories({dataList,onRefresh}) {
     return (
         <div className={styles.Table}>
             <h3 style={{marginBottom:"1rem"}}>All Users</h3>
-            <TableContainer style={{boxShadow:"0px 13px 20px 0px #80808029"}} component={Paper} >
+            <TableContainer style={{boxShadow:"0px 13px 20px 0px #80808029", overflow:"scroll", height:600}} component={Paper} >
                 <Table sx={{ minWidth: 650,  }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
