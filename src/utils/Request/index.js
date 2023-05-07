@@ -17,7 +17,7 @@ export const Request = async (method, url, data = {}, formData = false) => {
   }
 
   //
-  const token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjNiMTMzMmJhOTk2ZjY0NjhkMjhjNGE5IiwidGltZSI6MTY3Mjg1NTYwNzAxOCwiaWF0IjoxNjcyODU1NjA3fQ.e_f1V-c4dRVR-6oCc6WsNXFAr4MG_-dAYHMiZ31Skk0fPh8PWIj7dmHBtZeHb1nOl1fjBictr37JQ9Pyd0TwX1TDzI04zT_4xJW4Ow_k4j7GrwCAr4QK8yS0Oe_2uB2rj6HFw9Viy5-0BhW9oA0DnuW-HqkY8lkRvb7L4mJSxUS6oyBN7P-tF6UdqXW64b63FWEMNMHqep34QjUYqJlSK0-F9B7mxeQ5o_OWVXyUTZkQbR3-Boilk0TmgCOfSvCdQq2zJGa2v2c_8rqpzUU4LNbQq1Nh4Zw0sIiRfYdKO7BwwjROrRTo81nNaSAbiWpcE-Ne0uxCXc1j0hqiBDQynIxjvK8olrr2NGBv-0CTu5RqN8TLQnTjnOsnpuygBToIjBmeOW87jqjsGtZtecgLjRPNpw3GKzSUQDhfcFHMT9bXC6RSlWbRLH0Pr-cjnKphleRTQM_3u1by6u330ISf-z1mOR5xQJ4-FX8s48BGGOb_dZuzWi0_xqiOb3k2-CvP"
+  const token = localStorage.getItem("@token");
 
   // console.log('tttttttttttttttttttttttttttttttt', data);
   if (token) {

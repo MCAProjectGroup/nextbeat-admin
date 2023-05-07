@@ -109,7 +109,7 @@ const Artists = () => {
   useLayoutEffect(() => {
     
     getArtist();
-  }, [])
+  }, [Refresh])
   return (
     <div style={{  width: '100%', height:"100%" , padding:"4rem"}}>
        <FormPopup show={ShowForm.status} formListData={ArtistForm} onChange={onChangeFormData} data = {ShowForm.data} title={"Artist"} onSave={()=> addNew(FormManage)} onClose={()=> setShowForm({...ShowForm, status:false})} />
@@ -123,7 +123,7 @@ const Artists = () => {
             >Add</Button>
           
         </div>
-      <TableArtists dataList={artist_list} onEdit={openForm} formListData={ArtistForm}/>
+      <TableArtists dataList={artist_list} onEdit={openForm} formListData={ArtistForm} Refresh={()=>setRefresh(Refresh+1)}/>
 
     </div>
   );

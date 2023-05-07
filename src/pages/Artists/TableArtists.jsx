@@ -10,6 +10,7 @@ import styles from "./Table.module.css"
 import moment from 'moment/moment';
 import {UilEditAlt, UilTrash} from '@iconscout/react-unicons';
 import { green } from '@mui/material/colors';
+import { Request } from '../../utils/Request';
 function createData(name, trackingID, date, status) {
     return {name, trackingID, date, status };
 }
@@ -41,8 +42,27 @@ const makeStyles = (status)=>{
     return response
 }
 
-export default function TableArtists({dataList,formListData=[]}) {
+export default function TableArtists({dataList,formListData=[], Refresh}) {
     console.log({formListData});
+    const deleteCategory = async(song_id) => {
+        console.log(song_id)
+        // axios request to delete
+        let text;
+        if (window.confirm("Are you sure you want to delete") === true) {
+            text = "You pressed OK!";
+        //    console.log({song_id});
+            const res = await Request("delete", "/main/artists/"+song_id);
+            console.log(res.data);
+            
+            console.log(res);
+            Refresh()
+          } else {
+            text = "You canceled!";
+          }
+        // let confirmed =  confirmat(`Are you sure you want to delete`);
+        console.log(text)
+        
+    }
     return (
         <div className={styles.Table}>
             <h3 style={{marginBottom:"1rem"}}>All Artists</h3>
@@ -87,7 +107,7 @@ export default function TableArtists({dataList,formListData=[]}) {
                                     {row.language.join(", ")}
                                     </span>
                                 </TableCell>
-                                <TableCell className={styles.Details} align="left"><UilEditAlt color={"green"} />&nbsp; &nbsp;<UilTrash color={"red"} /></TableCell>
+                                <TableCell className={styles.Details} align="left"><UilEditAlt color={"green"} />&nbsp; &nbsp;<UilTrash color={"red"} onClick={()=>{deleteCategory(row._id)}} /></TableCell>
                                 <TableCell className={styles.Details} align="left">details</TableCell>
                             </TableRow>
                         ))}
