@@ -7,9 +7,12 @@ const initialState = {
 
 export const getSongData = createAsyncThunk(
     "song/getSongData",
-    async (_, {rejectWithValue}) =>{
+    async (data={}, {rejectWithValue}) =>{
         try {
-          const res = await Request("get", "main/songs");
+          const payload = {
+            offset: data.offset || 0,
+          } 
+          const res = await Request("get", "main/songs?offset=" + payload.offset+"&limit="+(data.offset>=0? 5: 1000));
           
           return res.data
         } catch (error) {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridRowsProp, GridColDef, GridToolbar } from '@mui/x-data-grid';
+
 import { Button, Paper } from '@mui/material';
 import { useState } from 'react';
 import { Request } from '../../utils/Request';
@@ -10,6 +10,8 @@ import { ArtistForm } from '../../Data/Data';
 import { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getArtistData } from '../../store/artist';
+import styles from "./Artists.module.css"
+import {UilAngleRight, UilAngleLeft } from '@iconscout/react-unicons';
 
 const rows = [
   { id: 1, col1: 'Hello', col2: 'World' },
@@ -21,8 +23,8 @@ const rows = [
 ];
 
 const columns = [
-  { field: 'id', headerName: 'Artist ID',  },
-  { field: 'name', headerName: 'Name',  },
+  { field: 'id', headerName: 'Artist ID', },
+  { field: 'name', headerName: 'Name', },
   { field: 'email', headerName: 'Email', },
 ];
 
@@ -33,21 +35,22 @@ const columns = [
 // }
 
 const Artists = () => {
-  const [ArtistList, setArtistList] = useState([]);
+
+  const [offset, setOffset] = useState(0)
   const [ShowForm, setShowForm] = useState({
-    status:false,
-    data:{}
+    status: false,
+    data: {}
   })
   const [Refresh, setRefresh] = useState(0);
   const [FormManage, setFormManage] = useState({
-    name:"",
-    file:null,
-    gender:"Male",
-    language:"Hindi"
+    name: "",
+    file: null,
+    gender: "Male",
+    language: "Hindi"
   });
-  const artist_list = useSelector(state=> state.artist.artist_list)
+  const artist_list = useSelector(state => state.artist.artist_list)
   const dispatch = useDispatch();
-  const getArtist= async () =>{
+  const getArtist = async () => {
     // try {
     //   // const res = await getCategoriesData();
     //   const res = await Request("get", "main/artists");
@@ -55,32 +58,32 @@ const Artists = () => {
     //   console.log(res.data);
     //   setArtistList(res.data.data)
     // } catch (error) {
-      
+
     // }
-    
-    dispatch(getArtistData())
+
+    dispatch(getArtistData({offset}))
   }
   // console.log({FormManage});
 
   const addNew = useCallback(
     async (data) => {
-     console.log(data);
+      console.log(data);
       const formData = new FormData();
-      formData.append("gender",data.gender);
+      formData.append("gender", data.gender);
       formData.append("language", [data.language]);
       formData.append("name", data.name);
       formData.append("file", data.file);
       console.log(formData.get("file"));
-       const res = await Request("post", "/main/artists/add",formData, true);
-       console.log({res});
-       setShowForm({...ShowForm, status:false})
-       setRefresh(state=> state+1)
-     },
-     [],
-   );
-  const openForm = (data={})=>{
+      const res = await Request("post", "/main/artists/add", formData, true);
+      console.log({ res });
+      setShowForm({ ...ShowForm, status: false })
+      setRefresh(state => state + 1)
+    },
+    [],
+  );
+  const openForm = (data = {}) => {
     setShowForm({
-      status:ShowForm,
+      status: ShowForm,
       data,
     })
   }
@@ -90,41 +93,45 @@ const Artists = () => {
   //     // console.log();
   //     setArtistList(res.data)
   //   } catch (error) {
-      
+
   //   }
   // }
   // Artist
   const onChangeFormData = useCallback(
-    async (key,data) => {
+    async (key, data) => {
       //  const res = await Request("post", "/main/genres/add",data);
       //  console.log(res.data);
       setFormManage({
-      ...FormManage,
-        [key]:data
+        ...FormManage,
+        [key]: data
       });
-     },
-     [FormManage],
-   )
-  
-  useLayoutEffect(() => {
-    
-    getArtist();
-  }, [Refresh])
-  return (
-    <div style={{  width: '100%', height:"100%" , padding:"4rem"}}>
-       <FormPopup show={ShowForm.status} formListData={ArtistForm} onChange={onChangeFormData} data = {ShowForm.data} title={"Artist"} onSave={()=> addNew(FormManage)} onClose={()=> setShowForm({...ShowForm, status:false})} />
-        <div style={{float:"right", marginBottom:16}}>
-            <Button
-            title='Add'
-            color='primary'
-            type='button'
-            variant='contained'
-            onClick={openForm}
-            >Add</Button>
-          
-        </div>
-      <TableArtists dataList={artist_list} onEdit={openForm} formListData={ArtistForm} Refresh={()=>setRefresh(Refresh+1)}/>
+    },
+    [FormManage],
+  )
 
+  useLayoutEffect(() => {
+
+    getArtist();
+  }, [Refresh, offset])
+  return (
+    <div style={{ width: '100%', height: "100%", padding: "4rem" }}>
+      <FormPopup show={ShowForm.status} formListData={ArtistForm} onChange={onChangeFormData} data={ShowForm.data} title={"Artist"} onSave={() => addNew(FormManage)} onClose={() => setShowForm({ ...ShowForm, status: false })} />
+      
+      <div style={{ float: "right", marginBottom: 16 }}>
+        <Button
+          title='Add'
+          color='primary'
+          type='button'
+          variant='contained'
+          onClick={openForm}
+        >Add</Button>
+
+      </div>
+      <TableArtists dataList={artist_list} onEdit={openForm} formListData={ArtistForm} Refresh={() => setRefresh(Refresh + 1)} />
+      <div className={styles.next}>
+        <div><UilAngleLeft color={"red"}  onClick={()=>setOffset(offset>0? offset-5: 0)} /></div>
+        <div ><UilAngleRight color={"#00b5ff"} onClick={()=> artist_list.length%5===0 && setOffset(offset+5)} /></div>
+      </div>
     </div>
   );
 }

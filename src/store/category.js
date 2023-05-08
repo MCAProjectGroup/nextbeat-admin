@@ -7,9 +7,12 @@ const initialState = {
 
 export const getCategoryData = createAsyncThunk(
     "category/getCategoryData",
-    async (_, {rejectWithValue}) =>{
+    async (data={}, {rejectWithValue}) =>{
         try {
-          const res = await Request("get", "main/genres");
+          const payload = {
+            offset: data.offset || 0,
+          } 
+          const res = await Request("get", "main/genres?offset=" + payload.offset+"&limit="+(data.offset>=0? 5: 1000) );
           
           return res.data
         } catch (error) {

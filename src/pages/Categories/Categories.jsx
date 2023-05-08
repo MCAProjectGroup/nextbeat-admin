@@ -11,21 +11,9 @@ import { useCallback } from 'react';
 import { getCategoryData } from '../../store/category';
 import { useDispatch, useSelector } from 'react-redux';
 // import Request from '../../utils/Request';
-const rows = [
-  { id: 1, col1: 'Hello', col2: 'World' },
-  { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-  { id: 3, col1: 'MUI', col2: 'is Amazing' },
-  { id: 11, col1: 'Hello', col2: 'World' },
-  { id: 12, col1: 'DataGridPro', col2: 'is Awesome' },
-  { id: 13, col1: 'MUI', col2: 'is Amazing' },
-];
+import styles from "./Categories.module.css"
+import {UilAngleRight, UilAngleLeft } from '@iconscout/react-unicons';
 
-const columns = [
-  { field: 'id', headerName: 'Category ID',  },
-  { field: 'name', headerName: 'Name',  },
-  { field: 'active', headerName: 'Active', },
-  { field: 'file', headerName: 'Active', },
-];
 
 
 // const getCategoriesData = async(page=1, filter={})=>{
@@ -34,7 +22,8 @@ const columns = [
 // }
 
 const Categories = () => {
-  const [CategoryList, setCategoryList] = useState([]);
+  const [offset, setOffset] = useState(0)
+
   const [ShowForm, setShowForm] = useState({
     status:false,
     data:{}
@@ -63,14 +52,14 @@ const Categories = () => {
     // } catch (error) {
       
     // }
-    dispatch(getCategoryData())
+    dispatch(getCategoryData({offset}))
 
   }
 
   useLayoutEffect(() => {
     
     getCategories();
-  }, [Refresh])
+  }, [Refresh, offset])
 
   const addNew = useCallback(
    async (data) => {
@@ -113,7 +102,10 @@ const Categories = () => {
           
         </div>
       <TableCategories dataList={category_list} onEdit={openForm} onRefresh={setRefresh} />
-
+      <div className={styles.next}>
+        <div><UilAngleLeft color={"red"}  onClick={()=>setOffset(offset>0? offset-5: 0)} /></div>
+        <div ><UilAngleRight color={"#00b5ff"} onClick={()=> category_list.length%5===0 && setOffset(offset+5)} /></div>
+      </div>
     </div>
   ); 
 }

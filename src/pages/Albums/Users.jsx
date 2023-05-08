@@ -5,33 +5,22 @@ import { useState } from 'react';
 import { Request } from '../../utils/Request';
 import { useLayoutEffect } from 'react';
 import TableUsers from './TableUsers';
-
-const rows = [
-  { id: 1, col1: 'Hello', col2: 'World' },
-  { id: 2, col1: 'DataGridPro', col2: 'is Awesome' },
-  { id: 3, col1: 'MUI', col2: 'is Amazing' },
-  { id: 11, col1: 'Hello', col2: 'World' },
-  { id: 12, col1: 'DataGridPro', col2: 'is Awesome' },
-  { id: 13, col1: 'MUI', col2: 'is Amazing' },
-];
-
-const columns = [
-  { field: 'id', headerName: 'User ID',  },
-  { field: 'name', headerName: 'Name',  },
-  { field: 'email', headerName: 'Email', },
-];
+import styles from "./Users.module.css"
+import {UilAngleRight, UilAngleLeft } from '@iconscout/react-unicons';
 
 
-const getUsersData = async(page=1, filter={})=>{
-    const res = await Request("get", "/main/users-list")
+const getUsersData = async(offset, filter={})=>{
+    const res = await Request("get", "/main/users-list?offset="+offset)
     return res.data; 
 }
 
 const Users = () => {
   const [UserList, setUserList] = useState([]);
+  const [offset, setOffset] = useState(0)
+
   const getUsers = async () =>{
     try {
-      const res = await getUsersData();
+      const res = await getUsersData(offset);
       // console.log();
       setUserList(res.data)
     } catch (error) {
@@ -47,7 +36,10 @@ const Users = () => {
     <div style={{  width: '100%', height:"100%" , padding:"4rem"}}>
         
       <TableUsers dataList={UserList} />
-
+      <div className={styles.next}>
+        <div><UilAngleLeft color={"red"}  onClick={()=>setOffset(offset>0? offset-5: 0)} /></div>
+        <div ><UilAngleRight color={"#00b5ff"} onClick={()=> category_list.length%5===0 && setOffset(offset+5)} /></div>
+      </div>
     </div>
   );
 }

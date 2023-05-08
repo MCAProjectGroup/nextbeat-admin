@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import styles from "./Table.module.css"
 import moment from 'moment/moment';
-import {UilEditAlt, UilTrash} from '@iconscout/react-unicons';
+import {UilEditAlt, UilTrash, UilAngleRight, UilAngleLeft} from '@iconscout/react-unicons';
 import { green } from '@mui/material/colors';
 import { Request } from '../../utils/Request';
 function createData(name, trackingID, date, status) {
@@ -66,8 +66,8 @@ export default function TableArtists({dataList,formListData=[], Refresh}) {
     return (
         <div className={styles.Table}>
             <h3 style={{marginBottom:"1rem"}}>All Artists</h3>
-            <TableContainer style={{boxShadow:"0px 13px 20px 0px #80808029", overflow:"scroll", height:600}} component={Paper} >
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableContainer style={{boxShadow:"0px 13px 20px 0px #80808029", overflow:"scroll", height:550}} component={Paper} >
+                <Table sx={{ }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
@@ -114,6 +114,7 @@ export default function TableArtists({dataList,formListData=[], Refresh}) {
                     </TableBody>
                 </Table>
             </TableContainer>
+               
         </div>
 
     );

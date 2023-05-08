@@ -13,17 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSongData } from '../../store/song';
 import { getArtistData } from '../../store/artist';
 // import Request from '../../utils/Request';
-
-const top100Films = [
-  { label: 'The Shawshank Redemption', year: 1994 },
-  { label: 'The Godfather', year: 1972 },
-  { label: 'The Godfather: Part II', year: 1974 },
-  { label: 'The Dark Knight', year: 2008 },
-  { label: '12 Angry Men', year: 1957 },
-  { label: "Schindler's List", year: 1993 },
-  { label: 'Pulp Fiction', year: 1994 },
-]
-
+import styles from "./Songs.module.css"
+import {UilAngleRight, UilAngleLeft } from '@iconscout/react-unicons';
 
 
 // const getCategoriesData = async(page=1, filter={})=>{
@@ -36,6 +27,8 @@ const Songs = () => {
     status: false,
     data: {}
   });
+  const [offset, setOffset] = useState(0)
+
   const [FormManage, setFormManage] = useState({
    
   })
@@ -54,7 +47,7 @@ const Songs = () => {
   const getSongs = async () => {
     dispatch(getCategoryData())
     dispatch(getArtistData())
-    dispatch(getSongData())
+    dispatch(getSongData({offset}))
     // try {
     //   // const res = await getSongsData();
     //   const res = await Request("get", "/main/genres");
@@ -68,10 +61,10 @@ const Songs = () => {
 
   }
 
-  useLayoutEffect(() => {
 
+  useLayoutEffect(() => {
     getSongs();
-  }, [Refresh])
+  }, [Refresh, offset])
 
   const addNew = useCallback(
     async (data) => {
@@ -183,7 +176,10 @@ const Songs = () => {
 
       </div>
       <TableSongs dataList={song_list} onEdit={openForm} onRefresh={setRefresh} />
-
+      <div className={styles.next}>
+        <div><UilAngleLeft color={"red"}  onClick={()=>setOffset(offset>0? offset-5: 0)} /></div>
+        <div ><UilAngleRight color={"#00b5ff"} onClick={()=> song_list.length%5===0 && setOffset(offset+5)} /></div>
+      </div>
     </div>
   );
 }

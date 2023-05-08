@@ -45,19 +45,19 @@ function App() {
           <Routes >
             <Route path="/" element={<DashBoard />} />
             <Route path="/admin" element={<DashBoard />} />
-            <Route path="/admin/users" element={<div style={{ width: "100%", height: "100%" }}>
+            <Route path="/admin/users" element={<div style={{ width: "100%", height: "100%", overflowY:"scroll" }}>
               <Users />
             </div>
             } />
-            <Route path="/admin/categories" element={<div style={{ width: "100%", height: "100%" }}>
+            <Route path="/admin/categories" element={<div style={{ width: "100%", height: "100%", overflowY:"scroll" }}>
               <Categories />
             </div>
             } />
-             <Route path="/admin/artists" element={<div style={{ width: "100%", height: "100%" }}>
+             <Route path="/admin/artists" element={<div style={{ width: "100%", height: "100%", overflowY:"scroll" }}>
               <Artists />
             </div>
             } />
-              <Route path="/admin/songs" element={<div style={{ width: "100%", height: "100%" }}>
+              <Route path="/admin/songs" element={<div style={{ width: "100%", height: "100%", overflowY:"scroll" }}>
               <Songs />
             </div>
             } />
