@@ -8,35 +8,38 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import styles from "./Table.module.css"
 import moment from 'moment/moment';
-import {UilEditAlt, UilTrash} from '@iconscout/react-unicons';
+import { UilEditAlt, UilTrash } from '@iconscout/react-unicons';
 import { green } from '@mui/material/colors';
 import { Request } from '../../utils/Request';
 import axios from 'axios';
+import { setTostingData } from '../../store/common';
+import { success_toast } from '../../utils/Common';
+import { useDispatch } from 'react-redux';
 function createData(name, trackingID, date, status) {
-    return {name, trackingID, date, status };
+    return { name, trackingID, date, status };
 }
 
-const makeStyles = (status)=>{
+const makeStyles = (status) => {
     let response;
     switch (status) {
         case "Approved":
             response = {
-                background:"rgb(145 254 159 / 47%)",
-                color:"green"
+                background: "rgb(145 254 159 / 47%)",
+                color: "green"
             }
             break;
         case "Pending":
             response = {
-                background:"#ffadad8f",
-                color:"red"
+                background: "#ffadad8f",
+                color: "red"
             }
             break;
 
-    
+
         default:
             response = {
-                background:"#59bfff",
-                color:"white"
+                background: "#59bfff",
+                color: "white"
             }
             break;
     }
@@ -45,31 +48,36 @@ const makeStyles = (status)=>{
 
 
 
-export default function TableCategories({dataList,onRefresh}) {
-    const deleteCategory = async(category_id,callBack) => {
+export default function TableCategories({ dataList, onRefresh }) {
+    const dispatch = useDispatch();
+    const deleteCategory = async (category_id, callBack) => {
         console.log(category_id)
         // axios request to delete
         let text;
         if (window.confirm("Are you sure you want to delete") === true) {
             text = "You pressed OK!";
-           
-            const res = await Request("delete", "/main/genres/"+category_id);
+
+            const res = await Request("delete", "/main/genres/" + category_id);
             console.log(res.data);
-            
+
             console.log(res);
+            dispatch(setTostingData({
+                ...success_toast,
+                message: "Category Successfully Deleted."
+            }));
             callBack()
-          } else {
+        } else {
             text = "You canceled!";
-          }
+        }
         // let confirmed =  confirmat(`Are you sure you want to delete`);
         console.log(text)
-        
+
     }
     return (
         <div className={styles.Table}>
-            <h3 style={{marginBottom:"1rem"}}>All Users</h3>
-            <TableContainer style={{boxShadow:"0px 13px 20px 0px #80808029", overflow:"scroll", height:600}} component={Paper} >
-                <Table sx={{ minWidth: 650,  }} aria-label="simple table">
+            <h3 style={{ marginBottom: "1rem" }}>All Users</h3>
+            <TableContainer style={{ boxShadow: "0px 13px 20px 0px #80808029", overflow: "scroll", height: 600 }} component={Paper} >
+                <Table sx={{ minWidth: 650, }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             <TableCell>ID</TableCell>
@@ -103,11 +111,11 @@ export default function TableCategories({dataList,onRefresh}) {
                                 </TableCell>
                                 <TableCell component="th" scope="row">
                                     {row.isUploaded.toString()}
-                                    
+
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    <UilTrash color="#ff4d4d" onClick={()=>deleteCategory(row._id,onRefresh)}  />
-                                    
+                                    <UilTrash color="#ff4d4d" onClick={() => deleteCategory(row._id, onRefresh)} />
+
                                 </TableCell>
                                 <TableCell align="left">{moment(row.updatedAt).format("DD/MM/YY hh:mm A")}</TableCell>
                                 {/* <TableCell align="left">{row.email}</TableCell>

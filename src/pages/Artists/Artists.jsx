@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getArtistData } from '../../store/artist';
 import styles from "./Artists.module.css"
 import {UilAngleRight, UilAngleLeft } from '@iconscout/react-unicons';
+import { setTostingData } from '../../store/common';
+import { success_toast } from '../../utils/Common';
 
 const rows = [
   { id: 1, col1: 'Hello', col2: 'World' },
@@ -77,6 +79,10 @@ const Artists = () => {
       const res = await Request("post", "/main/artists/add", formData, true);
       console.log({ res });
       setShowForm({ ...ShowForm, status: false })
+      dispatch(setTostingData({
+        ...success_toast,
+        message:"Album Successfully Added."
+      }))
       setRefresh(state => state + 1)
     },
     [],

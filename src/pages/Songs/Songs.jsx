@@ -15,6 +15,8 @@ import { getArtistData } from '../../store/artist';
 // import Request from '../../utils/Request';
 import styles from "./Songs.module.css"
 import {UilAngleRight, UilAngleLeft } from '@iconscout/react-unicons';
+import { success_toast } from '../../utils/Common';
+import { setTostingData } from '../../store/common';
 
 
 // const getCategoriesData = async(page=1, filter={})=>{
@@ -96,6 +98,10 @@ const Songs = () => {
       console.log({ res });
       setShowForm({ ...ShowForm, status: false })
       setRefresh(state => state + 1)
+      dispatch(setTostingData({
+        ...success_toast,
+        message:"Song Added Successfully."
+      }));
     },
     [],
   );

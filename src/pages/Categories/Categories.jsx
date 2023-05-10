@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 // import Request from '../../utils/Request';
 import styles from "./Categories.module.css"
 import {UilAngleRight, UilAngleLeft } from '@iconscout/react-unicons';
+import { success_toast } from '../../utils/Common';
+import { setTostingData } from '../../store/common';
 
 
 
@@ -72,6 +74,10 @@ const Categories = () => {
       console.log({res});
       setShowForm({...ShowForm, status:false})
       setRefresh(state=> state+1)
+      dispatch(setTostingData({
+        ...success_toast,
+        message:"Category Added Successfully."
+      }))
     },
     [],
   );

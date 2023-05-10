@@ -1,5 +1,5 @@
 // import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -44,16 +44,8 @@ const FormPopup = (props) => {
                 </div> */}
                 {
                     props.formListData.map((item, index) => (
-                        <div key={index + "adsdsadsa"} className="box" style={{ marginBottom: 16 }}>
-
-                            <TextField label={item.type !== "file" && item.placeholder || ""}
-                                fullWidth
-                                multiline={item.multiline || false}
-                                onChange={e => props.onChange(item.fieldName, item.type === "file" ? e.target.files[0] : e.target.value)}
-                                type={item.type}
-                                variant="outlined" />
-
-                        </div>
+                        <CInput {...props} item={item} index={index} key={index+"adsdasd"} />
+                       
                     ))
                 }
 
@@ -85,5 +77,48 @@ const FormPopup = (props) => {
 }
 
 export default FormPopup
+
+const CInput = (props)=>{
+    const {item, index} = props;
+    const [ImageFile, setImageFile] = useState(null)
+    console.log(ImageFile)
+    return (
+        <div key={index + "adsdsadsa"} className="box" style={{ marginBottom: 16 }}>
+
+        {
+            item.type === "file" && (
+                <label htmlFor="upload-photo">
+                    <input
+                        style={{ display: 'none' }}
+                        id="upload-photo"
+                        
+                        type="file"
+                        onChange={(e)=> {
+                            props.onChange(item.fieldName, e.target.files[0]);
+                            setImageFile(e.target.files[0])
+                        }}
+                    />
+
+                    <Button color="secondary" variant="contained" component="span">
+                        {ImageFile?ImageFile.name :"Upload " +item.placeholder}
+                    </Button>
+                </label>
+            )
+        }
+
+        {item.type !== "file" && (
+            <TextField label={item.type !== "file" && item.placeholder || ""}
+                fullWidth
+                multiline={item.multiline || false}
+                onChange={e => props.onChange(item.fieldName, item.type === "file" ? e.target.files[0] : e.target.value)}
+                type={item.type}
+                variant="outlined" />
+            )
+        }
+
+
+    </div>
+    )
+}
 
 // const styles = StyleSheet.create({})

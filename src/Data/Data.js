@@ -9,6 +9,7 @@ import {
     UilGlobe,
     UilClipboardAlt,
     UilChatBubbleUser,
+    UilObjectGroup
 
 } from '@iconscout/react-unicons'
 
@@ -35,6 +36,18 @@ export const SidebarArray = [
         icon:UilUserSquare,
         heading:"Artists",
         path:"/admin/artists"
+        
+    },
+    {
+        icon:UilUserSquare,
+        heading:"Artists",
+        path:"/admin/artists"
+        
+    },
+    {
+        icon:UilObjectGroup,
+        heading:"Albums",
+        path:"/admin/albums"
         
     },
     {
@@ -240,23 +253,16 @@ export const ArtistForm = [
 
 export const AlbumForm = [
     {
-        name:"Name",
+        name:"name",
+        fieldName:"name",
         placeholder:"Name",
         type:"text"
     },
     {
         name:"Image",
-        placeholder:"Category Banner",
+        fieldName:"file",
+        placeholder:"Artist Banner",
         type:"file"
     },
-    {
-        name:"Airtst",
-        placeholder:"Airtsts",
-        type:"text"
-    },
-    {
-        name:"Keyword",
-        placeholder:"Keywords",
-        type:"text"
-    }
+    
 ]

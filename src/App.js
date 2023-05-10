@@ -17,6 +17,9 @@ import Login from './pages/Login/Login';
 import { useLayoutEffect, useState } from 'react';
 import Artists from './pages/Artists/Artists';
 import Songs from './pages/Songs/Songs';
+import Albums from './pages/Albums/Albums';
+import ToastingMessage from './components/ToastingMessage/ToastingMessage';
+import AlbumsSongList from './pages/AlbumSongsList/AlbumsSongList';
 function App() {
   
   const [token, setToken] = useState("");
@@ -38,6 +41,8 @@ function App() {
 
   return (
     <div className="App">
+      <ToastingMessage  />
+
       <div className="AppGlass">
         <Router >
         <Sidebar />
@@ -57,6 +62,14 @@ function App() {
               <Artists />
             </div>
             } />
+              <Route path="/admin/albums/:id" element={<div style={{ width: "100%", height: "100%", overflowY:"scroll" }}>
+               <AlbumsSongList />
+             </div>
+             } />
+             <Route path="/admin/albums"  element={<div style={{ width: "100%", height: "100%", overflowY:"scroll" }}>
+              <Albums />
+            </div>
+            } />
               <Route path="/admin/songs" element={<div style={{ width: "100%", height: "100%", overflowY:"scroll" }}>
               <Songs />
             </div>
@@ -66,15 +79,15 @@ function App() {
       </div>
     </div>
   )
-  return (
-    <div className="App">
-      <div className="AppGlass">
-        <Sidebar />
-        <MainDash />
-        <RightSide />
-      </div>
-    </div>
-  );
+  // return (
+  //   <div className="App">
+  //     <div className="AppGlass">
+  //       <Sidebar />
+  //       <MainDash />
+  //       <RightSide />
+  //     </div>
+  //   </div>
+  // );
 }
 
 export default App;
