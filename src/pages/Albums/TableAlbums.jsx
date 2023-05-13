@@ -14,6 +14,7 @@ import { Request } from '../../utils/Request';
 import { success_toast } from '../../utils/Common';
 import { setTostingData } from '../../store/common';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 function createData(name, trackingID, date, status) {
     return {name, trackingID, date, status };
 }
@@ -46,7 +47,8 @@ const makeStyles = (status)=>{
 }
 
 export default function TableUsers({dataList, Refresh=()=>{}}) {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const deleteCategory = async(song_id) => {
         console.log(song_id)
         // axios request to delete
@@ -109,7 +111,7 @@ export default function TableUsers({dataList, Refresh=()=>{}}) {
                                     </span>
                                 </TableCell> */}
                                 <TableCell className={styles.Details} align="left"><UilEditAlt color={"green"} />&nbsp; &nbsp;<UilTrash color={"red"} onClick={()=>{deleteCategory(row._id)}} /></TableCell>
-                                <TableCell className={styles.Details} align="left">Add Song</TableCell>
+                                <TableCell className={styles.Details} align="left" onClick={()=>navigate(row._id) }>Add Song</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
