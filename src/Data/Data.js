@@ -38,12 +38,12 @@ export const SidebarArray = [
         path:"/admin/artists"
         
     },
-    {
-        icon:UilUserSquare,
-        heading:"Artists",
-        path:"/admin/artists"
+    // {
+    //     icon:UilUserSquare,
+    //     heading:"Artists",
+    //     path:"/admin/artists"
         
-    },
+    // },
     {
         icon:UilObjectGroup,
         heading:"Albums",

@@ -45,7 +45,7 @@ const makeStyles = (status)=>{
     return response
 }
 
-export default function TableAlbumsSongList({dataList, Refresh=()=>{}}) {
+export default function TableAlbumsSongList({dataList={}, Refresh=()=>{}}) {
     // console.log({dataList})
     const dispatch = useDispatch()
     const deleteCategory = async(song_id) => {
@@ -71,7 +71,7 @@ export default function TableAlbumsSongList({dataList, Refresh=()=>{}}) {
         console.log(text)
         
     }
-    if(!dataList.songs_details ){
+    if(!dataList?.songs_details ){
         return null;
     }
     return (

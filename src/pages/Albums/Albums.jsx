@@ -46,7 +46,9 @@ const Albums = () => {
   const getAlbums = async () =>{
     try {
       // const res = await getAlbumsData(offset);
-      dispatch(getAlbumData())
+      dispatch(getAlbumData({
+        offset: offset,
+      }))
       // console.log();
       // setUserList(res.data)
     } catch (error) {
@@ -115,7 +117,7 @@ const Albums = () => {
       <TableAlbums dataList={album_list} />
       <div className={styles.next}>
         <div><UilAngleLeft color={"red"}  onClick={()=>setOffset(offset>0? offset-5: 0)} /></div>
-        {/* <div ><UilAngleRight color={"#00b5ff"} onClick={()=> category_list.length%5===0 && setOffset(offset+5)} /></div> */}
+        <div ><UilAngleRight color={"#00b5ff"} onClick={()=> album_list.length%5===0 && setOffset(offset+5)} /></div>
       </div>
     </div>
   );
